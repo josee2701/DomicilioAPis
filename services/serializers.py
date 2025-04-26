@@ -1,19 +1,17 @@
 from rest_framework import serializers
 
-from .models import Address
+from .models import Service
 
 
-class AddressSerializer(serializers.ModelSerializer):
+class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Address
-        fields = '__all__'
+        model = Service
+        fields = ['id', 'client', 'pickup_address', 'status']
 
     def create(self, validated_data):
-        return Address.objects.create(**validated_data)
+        return Service.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
-        # evita cambiar el cliente, por ejemplo
-        validated_data.pop('client', None)
         for attr, val in validated_data.items():
             setattr(instance, attr, val)
         instance.save()
