@@ -20,11 +20,14 @@ from rest_framework.routers import DefaultRouter
 
 from accounts.views import ClientViewSet, DriverViewSet
 from locations.views import AddressViewSet
+from services.views import ServiceViewSet
 
 router = DefaultRouter()
 router.register(r'clients', ClientViewSet)
 router.register(r'drivers', DriverViewSet)
 router.register(r'addresses', AddressViewSet)
+router.register(r'services', ServiceViewSet)
+
 
 
 urlpatterns = [
