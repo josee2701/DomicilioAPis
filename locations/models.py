@@ -17,9 +17,6 @@ class Address(models.Model):
         max_length=100,
         default='Colombia'
     )
-    # aquí guardamos ambos: lat y lon
-    # point       = gis_models.PointField(
-    #     geography=True,  # cálculos en metros/kms sin reproyección
-    #     srid=4326
-    # )
+    lat = models.FloatField(null=True, blank=True)
+    lon = models.FloatField(null=True, blank=True)
     

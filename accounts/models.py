@@ -38,4 +38,5 @@ class Driver(models.Model):
     ]
     user     = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="driver_profile")
     status   = models.CharField(max_length=10, choices=STATUS_CHOICES, default='inactive')
-    # location = gis_models.PointField(null=True, blank=True)  # requiere GeoDjango
+    lat = models.FloatField(null=True, blank=True)
+    lon = models.FloatField(null=True, blank=True)
