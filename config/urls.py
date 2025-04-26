@@ -19,10 +19,13 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
 from accounts.views import ClientViewSet, DriverViewSet
+from locations.views import AddressViewSet
 
 router = DefaultRouter()
 router.register(r'clients', ClientViewSet)
 router.register(r'drivers', DriverViewSet)
+router.register(r'addresses', AddressViewSet)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
