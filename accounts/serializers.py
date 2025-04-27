@@ -38,7 +38,7 @@ class DriverSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Driver
-        fields = ['id', 'user', 'status']
+        fields = ['id', 'user', 'status', 'lat', 'lon']
 
     def create(self, validated_data):
         user_data = validated_data.pop('user')

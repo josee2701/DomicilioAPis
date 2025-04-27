@@ -7,11 +7,11 @@ from locations.models import Address
 # Create your models here.
 class Service(models.Model):
     STATUS_CHOICES = [
-        ('requested','Requested'),
-        ('assigned','Assigned'),
-        ('in_transit','In Transit'),
-        ('completed','Completed'),
-        ('cancelled','Cancelled'),
+        ('requested','Solicitado'),
+        ('assigned','Asignado'),
+        ('in_transit','En tránsito'),
+        ('completed','Completado'),
+        ('cancelled','Cancelado'),
     ]
     client= models.ForeignKey(Client, on_delete=models.CASCADE, related_name='services')
     driver= models.ForeignKey(Driver, null=True, blank=True,on_delete=models.SET_NULL, related_name='services')
