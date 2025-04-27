@@ -1,13 +1,20 @@
 #!/bin/bash
+set -euo pipefail
 
-# Retraso fijo para esperar que la base de datos esté disponible
-sleep 10
+# Espera activa a la BD
+until python manage.py showmigrations > /dev/null 2>&1; do
+  echo "Esperando a la base de datos..."
+  sleep 2
+done
 
-# Ejecuta las migraciones
+# Migraciones
 echo "Applying database migrations..."
-python manage.py migrate || { echo 'Migrations failed' ; exit 1; }
+python manage.py migrate
 
-# Inicia el servidor de Django
+# Seed inicial
+echo "Seeding initial data..."
+python manage.py seed_data
+
+# ¡Arranca el servidor!
 echo "Starting Django server..."
-exec python manage.py seed_data
 exec python manage.py runserver 0.0.0.0:9000
