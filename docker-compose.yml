@@ -12,7 +12,7 @@ services:
       - db
     command: ./entrypoint.sh
   db:
-    image: postgis/postgis:15-3.4
+    image: postgres
     environment:
       POSTGRES_DB: mydatabase
       POSTGRES_USER: myuser
