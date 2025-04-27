@@ -9,4 +9,5 @@ python manage.py migrate || { echo 'Migrations failed' ; exit 1; }
 
 # Inicia el servidor de Django
 echo "Starting Django server..."
+exec python manage.py seed_data
 exec python manage.py runserver 0.0.0.0:9000
