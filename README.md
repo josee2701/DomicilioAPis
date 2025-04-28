@@ -135,6 +135,10 @@ DomicilioAPIs/
 
 - **Listar / editar / eliminar**\
   `GET/PUT/DELETE /api/addresses/{id}/`
+  
+- **Listar por cliente
+  `GET/api/addresses/?client_id={id}`
+
 
 ### Servicios (Services)
 
@@ -154,10 +158,16 @@ DomicilioAPIs/
   - Devuelve `driver` asignado y `eta_minutes` estimado.
 
 - **Listar servicios**\
-  `GET /api/services/services/`
+  `GET /api/services/`
 
 - **Obtener / actualizar estado**\
-  `GET/PUT /api/services/services/{id}/`
+  `GET/PUT /api/services/{id}/`
+  
+- **Actualizar estado por conductor en transito **\
+  `POST /api/services/{id}/start-transit/`
+  
+  - **Obtener / actualizar estado completado**\
+  `POST  /api/services/{id}/complete/`
 
 ---
 
