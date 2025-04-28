@@ -211,20 +211,3 @@ services:
 volumes:
   postgres_data:
 ```
-
----
-
-## 🤝 Contribuciones
-
-1. Fork en GitHub
-2. Crea tu rama feature: `git checkout -b feature/nueva-funcionalidad`
-3. Realiza commit de tus cambios: `git commit -m "Agrega nueva funcionalidad"`
-4. Push a la rama: `git push origin feature/nueva-funcionalidad`
-5. Abre un Pull Request
-
----
-
-## 📄 Licencia
-
-Este proyecto está bajo la licencia **MIT**. Consulta el archivo `LICENSE` para más detalles.
-
