@@ -4,13 +4,28 @@ from haversine import Unit, haversine
 from rest_framework import serializers
 
 from accounts.models import Driver
+from accounts.serializers import ClientSerializer, DriverSerializer
+from locations.serializers import AddressSerializer
 
 from .models import Service
 
 
 class ServiceSerializer(serializers.ModelSerializer):
     # devolveremos estos campos en la respuesta
-    driver = serializers.PrimaryKeyRelatedField(read_only=True)
+    client = ClientSerializer(read_only=True)
+    client_id = serializers.PrimaryKeyRelatedField(
+        queryset=ClientSerializer.Meta.model.objects.all(),
+        source='client',
+        write_only=True
+    )
+    driver = DriverSerializer(read_only=True)
+    
+    pickup_address= AddressSerializer(read_only=True)
+    pickup_address_id = serializers.PrimaryKeyRelatedField(
+        queryset=AddressSerializer.Meta.model.objects.all(),
+        source='pickup_address',
+        write_only=True
+    )
     eta_minutes = serializers.IntegerField(read_only=True)
 
     class Meta:
@@ -18,13 +33,15 @@ class ServiceSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'client',
+            'client_id',
             'pickup_address',
+            'pickup_address_id',
             'driver',
             'eta_minutes',
             'status',
             'date_aplication',
         ]
-        read_only_fields = ['status', 'date_aplication'] # solo lectura
+        read_only_fields = ['driver','status', 'date_aplication'] # solo lectura
 
     def create(self, validated_data):
         address = validated_data['pickup_address']
