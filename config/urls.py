@@ -15,7 +15,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
+from django.views.generic.base import RedirectView
 from rest_framework.routers import DefaultRouter
 
 from accounts.views import ClientViewSet, DriverViewSet
@@ -33,5 +34,10 @@ router.register(r'services', ServiceViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls'))
+    path('api-auth/', include('rest_framework.urls')),
+    # Fallback: cualquier URL que no matchee arriba
+    re_path(r'^.*$', RedirectView.as_view(
+        url='/api/',  
+        permanent=False           
+    ), name='fallback'),
 ]
