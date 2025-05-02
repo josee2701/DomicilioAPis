@@ -1,10 +1,10 @@
 # locations/views.py
 
-from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
-from accounts.models import Client
+from accounts.permissions import IsAdmin, IsClient
 
 from .models import Address
 from .serializers import AddressSerializer
@@ -13,6 +13,7 @@ from .serializers import AddressSerializer
 class AddressViewSet(viewsets.ModelViewSet):
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly, IsAdmin | IsClient]
 
     def get_queryset(self):
         qs = super().get_queryset()
