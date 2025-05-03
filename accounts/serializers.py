@@ -48,10 +48,11 @@ class DriverSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         user_data = validated_data.pop('user', {})
         user = instance.user
+        #Se recorre el diccionario de datos del usuario y se actualizan los atributos
         for attr, value in user_data.items():
             setattr(user, attr, value)
         user.save()
-
+        #Se recorre el diccionario de datos del conductor y se actualizan los atributos
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
 

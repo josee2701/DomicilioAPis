@@ -1,6 +1,7 @@
 import random
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand
 from faker import Faker
 
@@ -16,6 +17,9 @@ class Command(BaseCommand):
         User = get_user_model()
         min_lat, max_lat = -4.227, 12.442  
         min_lon, max_lon = -79.01, -66.87 
+        
+        client_group, _ = Group.objects.get_or_create(name='Client')
+        driver_group, _ = Group.objects.get_or_create(name='Driver')
 
         clients = []
         for i in range(5):
@@ -26,10 +30,12 @@ class Command(BaseCommand):
                     username=username, email=email, password='test1234'
                 )
                 client = Client.objects.create(user=user)
+                user.groups.add(client_group)
                 clients.append(client)
                 self.stdout.write(self.style.SUCCESS(f'Creado Client "{username}"'))
             else:
                 client = Client.objects.get(user__username=username)
+                user.groups.add(client_group)
                 clients.append(client)
                 self.stdout.write(self.style.WARNING(f'Client "{username}" ya existe'))
 
@@ -41,6 +47,7 @@ class Command(BaseCommand):
                 user = User.objects.create_user(
                     username=username, email=email, password='test1234'
                 )
+                user.groups.add(driver_group)
                 lat = random.uniform(min_lat, max_lat)      
                 lon = random.uniform(min_lon, max_lon)      
                 driver = Driver.objects.create(
@@ -50,6 +57,7 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.SUCCESS(f'Creado Driver "{username}"'))
             else:
                 driver = Driver.objects.get(user__username=username)
+                user.groups.add(driver_group)
                 drivers.append(driver)
                 self.stdout.write(self.style.WARNING(f'Driver "{username}" ya existe'))
 

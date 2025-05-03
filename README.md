@@ -163,10 +163,13 @@ DomicilioAPIs/
 - **Obtener / actualizar estado**\
   `GET/PUT /api/services/{id}/`
   
-- **Actualizar estado por conductor en transito **\
+- **Obtener estado por cliente del servicio**\
+  `GET/PUT /api/services/?client_id={id}/`
+  
+- **Actualizar estado por conductor en transito**\
   `POST /api/services/{id}/start-transit/`
   
-  - **Obtener / actualizar estado completado**\
+- **Obtener / actualizar estado completado**\
   `POST  /api/services/{id}/complete/`
 
 ---

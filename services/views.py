@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
 # Create your views here.
@@ -14,6 +14,7 @@ from .serializers import ServiceSerializer
 class ServiceViewSet(viewsets.ModelViewSet):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -34,7 +35,6 @@ class ServiceViewSet(viewsets.ModelViewSet):
     def complete(self, request, pk=None):
       
         service = self.get_object()
-
         service.status = 'completed'
         service.date_completed = timezone.now()
         service.save(update_fields=['status', 'date_completed'])
