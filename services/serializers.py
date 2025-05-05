@@ -18,8 +18,7 @@ class ServiceSerializer(serializers.ModelSerializer):
         source='client',
         write_only=True
     )
-    driver = DriverSerializer(read_only=True)
-    
+    driver = DriverSerializer(read_only=True)# Serializador anidado para el conductor
     pickup_address= AddressSerializer(read_only=True)
     pickup_address_id = serializers.PrimaryKeyRelatedField(
         queryset=AddressSerializer.Meta.model.objects.all(),
